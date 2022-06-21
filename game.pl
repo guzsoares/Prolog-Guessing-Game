@@ -1,9 +1,15 @@
-:- dynamic tree_y/2.
-:- dynamic tree_n/2.
-:- dynamic guess_y/2.
-:- dynamic guess_n/2.
+% TREE IS A "ARRAY" THAT WILL HAVE A QUESTION AND A FOLLOWING QUESTION TO IT OR A FOLLOWING GUESS TO IT
+:- dynamic tree_y/2. % IF ANSWER == YES
+:- dynamic tree_n/2. % IF ANSWER == NO
+% GUESS IS A "ARRAY" THAT WILL HAVE A QUESTION AND A GUESS FOR THAT QUESTION 
+:- dynamic guess_y/2. % IF ANSWER == YES
+:- dynamic guess_n/2. % IF ANSWER == NO
 
-try_guessing(Tree, Guess) :-
+
+
+% try_guessing function
+% it will print out the questions and the according follow up to the current question
+try_guessing(Tree, Guess) :- 
     write(Tree), write(" (yes./no.) "),      % Prints question and possible answers
     nl, read(Input), nl,        % Read input
     (
@@ -13,6 +19,9 @@ try_guessing(Tree, Guess) :-
     (Input=no, not(tree_n(Tree, _)), guess_n(Tree, Guess), !)
         ).
     
+
+% check_guess_fuction
+% it will check if the computer guess is right
 check_guess(Guess, Input) :-
     write("Your animal is "),
     write(Guess), write(" (yes./no.) "),      % Guess the animal and player must confirm if it is right or wrong
@@ -22,12 +31,15 @@ check_guess(Guess, Input) :-
       (Input=no, write("Oh no! I guessed wrong"), nl)  
         ).
 
+
+% update_animals fuction
+%it will update the text file with a new animal and a question that leads to him
 update_animals(Guess) :-
     write("Which animal did you think of? "),
     nl, read(PlayerAnimal),     % Read player animal
 
     write("What question should I make to guess your animal?"),
-    nl, read(NewQuestion),
+    nl, read(NewQuestion),      % Read player question
 
     write("What is the answer to that question according to your animal? "),
     nl, write(NewQuestion), write(" (yes./no.) "),
@@ -49,18 +61,19 @@ update_animals(Guess) :-
     (
         (
             Answer=yes,
-            assertz(guess_y(NewQuestion,PlayerAnimal)),
-            assertz(guess_n(NewQuestion, Guess))
+            assertz(guess_y(NewQuestion,PlayerAnimal)), % setup a guess array with the new animal if the answer is yes
+            assertz(guess_n(NewQuestion, Guess))        % setup the old animal with the new question if the answer is no
             );
         (
             Answer=no,
-            assertz(guess_n(NewQuestion,PlayerAnimal)),
-            assertz(guess_y(NewQuestion, Guess))
+            assertz(guess_n(NewQuestion,PlayerAnimal)),% setup a guess array with the new animal if the answer is no
+            assertz(guess_y(NewQuestion, Guess))    % setup the old animal with the new question if the answer is yes
             )
         ).
 
 
-
+% update function
+% read the file and update the game with the new content added
 update :-
     tell('animals.txt'),
     listing(start_pos),
@@ -70,11 +83,16 @@ update :-
     listing(guess_n),
     told.
 
+
+% play function
+% run it to play the game
 play :-
     consult('animals.txt'),
     write("Hi! I'm a computer intelligence made to guess the animal you are thinking."),
     nl, write("Think about any animal and don't tell me!"),
-    nl, write("Answer my questions with yes or no, and don't forget to add a . at the end of every answer"),
+    nl, write("Answer my questions with yes or no, and don't forget to add a ."),
+    nl, write(" at the end of every answer, and provide new questions/animals"),
+    nl, write(" between quotation marks!"),
     nl, nl, nl,
     start_pos(FirstQuestion), try_guessing(FirstQuestion, Answer), check_guess(Answer, GameOver),
     (

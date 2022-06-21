@@ -8,6 +8,7 @@ tree_y("Is your animal aquatic?", "Is your animal a big animal?").
 tree_y("Does it fly?", "Is it a wild animal?").
 tree_y("Is your animal a reptile?", "Does your animal have legs?").
 tree_y("Is it a rodent?", "Does your animal lives close to water?").
+tree_y("Is your animal herbivore?", "Is your animal a marsupial?").
 
 :- dynamic tree_n/2.
 
@@ -18,6 +19,8 @@ tree_n("Is it a bird?", "Is your animal a reptile?").
 tree_n("Is your animal a pet animal?", "Is it a rodent?").
 tree_n("Is it known as the bestfriend of the man?", "Is it a rodent?").
 tree_n("Is it a rodent?", "Is it common to see that animal in farms?").
+tree_n("Is your animal a reptile?", "Is your animal aquatic?").
+tree_n("Is it common to see that animal in farms?", "Is your animal herbivore?").
 
 :- dynamic guess_y/2.
 
@@ -28,14 +31,17 @@ guess_y("Is it a wild animal?", "Parrot").
 guess_y("Is it common to see that animal in farms?", "Pig").
 guess_y("Does your animal have legs?", "Alligator").
 guess_y("Does your animal lives close to water?", "Capybara").
+guess_y("Is your animal aquatic?", "Shark").
+guess_y("Is your animal a marsupial?", "Koala").
 
 :- dynamic guess_n/2.
 
 guess_n("Does it fly?", "Chicken").
 guess_n("Is your animal a big animal?", "Dolphin").
-guess_n("Is your animal a reptile?", "Frog").
 guess_n("Is it a wild animal?", "Pigeon").
-guess_n("Is it common to see that animal in farms?", "Lion").
 guess_n("Does your animal have legs?", "Snake").
 guess_n("Does your animal lives close to water?", "Squirrel").
+guess_n("Is your animal aquatic?", "Frog").
+guess_n("Is your animal herbivore?", "Lion").
+guess_n("Is your animal a marsupial?", "Panda").
 
