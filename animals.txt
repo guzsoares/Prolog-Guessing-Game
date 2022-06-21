@@ -1,0 +1,26 @@
+start_pos("Is your animal a mammal?").
+
+:- dynamic tree_y/2.
+
+tree_y("Is your animal a mammal?", "Does it have stripes?").
+tree_y("Is it a bird?", "Does it fly?").
+
+:- dynamic tree_n/2.
+
+tree_n("Is your animal a mammal?", "Is it a bird?").
+tree_n("Does it have stripes?", "Does it live in the water?").
+tree_n("Does it live in the water?", "Is it known as the bestfriend of the man?").
+
+:- dynamic guess_y/2.
+
+guess_y("Does it have stripes?", "Zebra").
+guess_y("Does it fly?", "Pigeon").
+guess_y("Does it live in the water?", "Whale").
+guess_y("Is it known as the bestfriend of the man?", "Dog").
+
+:- dynamic guess_n/2.
+
+guess_n("Does it fly?", "Chicken").
+guess_n("Is it a bird?", "Penguin").
+guess_n("Is it known as the bestfriend of the man?", "Lion").
+
