@@ -1,2 +1,2 @@
 # Prolog Guessing Game
- This is a game made with prolog, the computer will try to guess the animal you are thinking of
+This is a self learning game using Prolog, it will try to guess your animal, and if it doesn't it will learn with it
